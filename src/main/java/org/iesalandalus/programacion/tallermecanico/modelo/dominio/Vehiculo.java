@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.tallermecanico.modelo.dominio;
 import java.util.Objects;
 
 public record Vehiculo(String marca, String modelo, String matricula) {
-    private static final String ER_MARCA = "[A-Z][a-z]+([ -]?[A-Z][a-z]+)*|[A-Z]+";
+    private static final String ER_MARCA = "[A-Z][a-z]+(?:[- ]?[A-Z][a-z]+)?|[A-Z]+";
     private static final String ER_MATRICULA = "\\d{4}[WRTYPLKJHGFDSZXCVBNM]{3}";
 
     public Vehiculo{
@@ -41,8 +41,7 @@ public record Vehiculo(String marca, String modelo, String matricula) {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vehiculo vehiculo)) return false;
-        if (((Vehiculo) o).matricula.equals(matricula)) return true;
-        return Objects.equals(marca, vehiculo.marca) && Objects.equals(modelo, vehiculo.modelo) && Objects.equals(matricula, vehiculo.matricula);
+        return Objects.equals(matricula, vehiculo.matricula);
     }
 
     @Override

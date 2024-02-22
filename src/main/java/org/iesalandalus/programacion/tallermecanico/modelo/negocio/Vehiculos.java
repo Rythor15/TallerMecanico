@@ -30,7 +30,7 @@ public class Vehiculos {
     public Vehiculo buscar(Vehiculo vehiculo) {
         Objects.requireNonNull(vehiculo, "No se puede buscar un vehículo nulo.");
         int indiceListaVehiculos = coleccionVehiculos.indexOf(vehiculo);
-        return (coleccionVehiculos.contains(vehiculo)) ? coleccionVehiculos.get(indiceListaVehiculos) : null;
+        return (indiceListaVehiculos == -1) ? null : coleccionVehiculos.get(indiceListaVehiculos);
     }
 
     public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {

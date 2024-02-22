@@ -77,13 +77,12 @@ public class Cliente {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cliente cliente)) return false;
-        if (((Cliente) o).dni.equals(dni)) return true;
-        return Objects.equals(getNombre(), cliente.getNombre()) && Objects.equals(getDni(), cliente.getDni()) && Objects.equals(getTelefono(), cliente.getTelefono());
+        return Objects.equals(dni, cliente.dni);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDni());
+        return Objects.hash(dni);
     }
 
     @Override

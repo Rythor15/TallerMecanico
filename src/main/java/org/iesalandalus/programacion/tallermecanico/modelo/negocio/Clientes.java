@@ -28,17 +28,19 @@ public class Clientes {
     }
 
     public boolean modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
-        boolean modificado = false;
+
         Objects.requireNonNull(cliente, "No se puede modificar un cliente nulo.");
-        if (!coleccionClientes.contains(cliente)) {
+        Cliente clienteBuscado = buscar(cliente);
+        boolean modificado = false;
+        if (clienteBuscado == null) {
             throw new OperationNotSupportedException("No existe ningún cliente con ese DNI.");
         }
         if (nombre != null && !nombre.isBlank()) {
-            cliente.setNombre(nombre);
+            clienteBuscado.setNombre(nombre);
             modificado = true;
         }
         if (telefono != null && !telefono.isBlank()) {
-            cliente.setTelefono(telefono);
+            clienteBuscado.setTelefono(telefono);
             modificado = true;
         }
         return modificado;
@@ -47,7 +49,7 @@ public class Clientes {
     public Cliente buscar(Cliente cliente) {
         Objects.requireNonNull(cliente, "No se puede buscar un cliente nulo.");
         int indiceListaClientes = coleccionClientes.indexOf(cliente);
-        return (coleccionClientes.contains(cliente)) ? coleccionClientes.get(indiceListaClientes) : null;
+        return (indiceListaClientes == -1) ? null : coleccionClientes.get(indiceListaClientes);
     }
 
     public void borrar(Cliente cliente) throws OperationNotSupportedException {

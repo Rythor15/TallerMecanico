@@ -7,6 +7,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Consola {
     private static final String CADENA_FORMATO_FECHA = "dd/MM/yyyy";
@@ -15,7 +16,7 @@ public class Consola {
 
     }
     public static void mostrarCabecera (String mensaje) {
-        System.out.print(mensaje);
+        System.out.printf("%n%s%n", mensaje);
         for(int i = 0; i < mensaje.length(); i++) {
             System.out.print("-");
         }
@@ -28,11 +29,15 @@ public class Consola {
         }
     }
     public static Opcion elegirOpcion() {
-        int numeroOpcion;
+        Opcion opcion = null;
         do {
-            numeroOpcion = leerEntero("Introduzca el número de la opción");
-        } while (!Opcion.esValida(numeroOpcion));
-        return Opcion.get(numeroOpcion);
+            try{
+                opcion = Opcion.get(leerEntero("Introduzca el número de la opción"));
+            } catch (IllegalArgumentException e){
+                System.out.printf("%n%s", e.getMessage());
+            }
+        } while (opcion == null);
+        return opcion;
     }
     private static int leerEntero(String mensaje){
         System.out.println(mensaje);
@@ -47,11 +52,14 @@ public class Consola {
         return Entrada.cadena();
     }
     private static LocalDate leerFecha(String mensaje){
-        System.out.println(mensaje);
         LocalDate fecha;
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern(CADENA_FORMATO_FECHA);
-          String fechaString = Entrada.cadena();
-          fecha = LocalDate.parse(fechaString, formatoFecha);
+        System.out.printf("%s (%s)", mensaje, CADENA_FORMATO_FECHA);
+        try {
+            fecha = LocalDate.parse(leerCadena(mensaje), formatoFecha);
+        } catch (DateTimeParseException e){
+            fecha = null;
+        }
         return fecha;
     }
     public static Cliente leerCliente(){
@@ -65,15 +73,15 @@ public class Consola {
         return Cliente.get(dni);
     }
     public static String leerNuevoNombre(){
-        return leerCadena("Introduce un nombre.");
+        return leerCadena("Introduce un nuevo nombre.");
     }
     public static String leerNuevoTelefono(){
-        return leerCadena("Introduce un teléfono.");
+        return leerCadena("Introduce un nuevo teléfono.");
     }
     public static Vehiculo leerVehiculo(){
-        String marca = leerCadena("Introduce la marca del vehículo.");
-        String modelo = leerCadena("Introduce el modelo del vehículo.");
-        String matricula = leerCadena("Introduzca la matricula del vehículo");
+        String marca = leerCadena("Introduce la marca del vehículo: ");
+        String modelo = leerCadena("Introduce el modelo del vehículo: ");
+        String matricula = leerCadena("Introduzca la matricula del vehículo: ");
         return new Vehiculo(marca, modelo, matricula);
     }
     public static Vehiculo leerVehiculoMatricula(){
@@ -81,7 +89,7 @@ public class Consola {
         return Vehiculo.get(matricula);
     }
     public static Revision leerRevision(){
-        return new Revision(leerCliente(), leerVehiculo(), leerFecha("Introduzca la fecha del inicio de la revisión"));
+        return new Revision(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio de la revisión"));
     }
     public static int leerHoras(){
         return leerEntero("Introduzca el numero de horas trabajadas.");

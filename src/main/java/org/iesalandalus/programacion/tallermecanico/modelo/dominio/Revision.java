@@ -7,8 +7,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Revision {
-    private static final float PRECIO_HORA = 30;
-    private static final float PRECIO_DIA = 10;
+    private static final float PRECIO_HORA = 30F;
+    private static final float PRECIO_DIA = 10F;
     private static final float PRECIO_MATERIAL = 1.5F;
     static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate fechaInicio;
@@ -22,6 +22,9 @@ public class Revision {
         setCliente(cliente);
         setVehiculo(vehiculo);
         setFechaInicio(fechaInicio);
+        fechaFin = null;
+        horas = 0;
+        precioMaterial = 0;
 
     }
 
@@ -86,7 +89,7 @@ public class Revision {
     public void anadirHoras(int horas) throws OperationNotSupportedException {
         if (estaCerrada()) {
             throw new OperationNotSupportedException("No se puede añadir horas, ya que la revisión está cerrada.");
-        } else if (horas <= 0 || horas >= 24) {
+        } else if (horas <= 0) {
             throw new IllegalArgumentException("Las horas a añadir deben ser mayores que cero.");
         }
         this.horas = this.horas + horas;
@@ -123,7 +126,7 @@ public class Revision {
     }
 
     private float getDias() {
-        return ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+       return  (estaCerrada() ? (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin) : 0);
     }
 
     @Override
