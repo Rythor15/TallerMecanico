@@ -1,26 +1,23 @@
-package org.iesalandalus.programacion.tallermecanico.controlador;
+/*package org.iesalandalus.programacion.tallermecanico.controlador;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.Modelo;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.cascada.ModeloCascada;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuenteDatos;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
+import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 
-import javax.naming.OperationNotSupportedException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
-public class Controlador {
+public class Controlador implements IControlador {
     private final Modelo modelo;
     private final Vista vista;
 
     public Controlador(Modelo modelo, Vista vista) {
         Objects.requireNonNull(modelo, "El modelo no puede ser nulo.");
         Objects.requireNonNull(vista, "La vista no puede ser nula.");
-        this.modelo = new Modelo();
+        this.modelo = new ModeloCascada(FabricaFuenteDatos.MEMORIA);
         this.vista = vista;
-        this.vista.setControlador(this);
+        this.vista.getGestorEventos().subscribir(this, Evento.values());
     }
 
     public void comenzar() {
@@ -28,9 +25,15 @@ public class Controlador {
         vista.comenzar();
     }
 
+    @Override
     public void terminar() {
         modelo.terminar();
         vista.terminar();
+    }
+
+    @Override
+    public void actualizar(Evento evento) {
+
     }
 
     public void insertar(Cliente cliente) throws OperationNotSupportedException {
@@ -105,4 +108,4 @@ public class Controlador {
         return modelo.getRevisiones(vehiculo);
     }
 
-}
+}*/

@@ -1737,23 +1737,23 @@
                     <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_FbPZoM79Ee6dsIuvGKkUNw" name="comenzar" specification="_FbOykM79Ee6dsIuvGKkUNw">
                       <language>JAVA</language>
                       <body>
-    Evento opcion;
+    Evento evento;
     do {
         Consola.mostrarMenu();
-        opcion = Consola.elegirOpcion();
-        ejecutar(opcion);
-    } while (opcion != Evento.SALIR);
+        evento = Consola.elegirOpcion();
+        ejecutar(evento);
+    } while (evento != Evento.SALIR);
 </body>
                     </ownedBehavior>
                     <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_FbQnwc79Ee6dsIuvGKkUNw" name="ejecutar" specification="_FbQAsM79Ee6dsIuvGKkUNw">
-                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_4r5WM88dEe6dsIuvGKkUNw" name="opcion" type="_gbjawM78Ee6dsIuvGKkUNw">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_4r5WM88dEe6dsIuvGKkUNw" name="evento" type="_gbjawM78Ee6dsIuvGKkUNw">
                         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4r5WNM8dEe6dsIuvGKkUNw" value="1"/>
                         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4r5WNc8dEe6dsIuvGKkUNw" value="1"/>
                       </ownedParameter>
                       <language>JAVA</language>
                       <body>
-    Consola.mostrarCabecera(opcion.toString());
-    gestorEventos.notificar(opcion);
+    Consola.mostrarCabecera(evento.toString());
+    gestorEventos.notificar(evento);
 </body>
                     </ownedBehavior>
                     <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_FbRO0c79Ee6dsIuvGKkUNw" name="terminar" specification="_FbRO0M79Ee6dsIuvGKkUNw">
@@ -2031,7 +2031,7 @@
                     </ownedOperation>
                     <ownedOperation xmi:type="uml:Operation" xmi:id="_FbOykM79Ee6dsIuvGKkUNw" name="comenzar" visibility="public" method="_FbPZoM79Ee6dsIuvGKkUNw"/>
                     <ownedOperation xmi:type="uml:Operation" xmi:id="_FbQAsM79Ee6dsIuvGKkUNw" name="ejecutar" visibility="private" method="_FbQnwc79Ee6dsIuvGKkUNw">
-                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_FbQnwM79Ee6dsIuvGKkUNw" name="opcion" type="_gbjawM78Ee6dsIuvGKkUNw"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_FbQnwM79Ee6dsIuvGKkUNw" name="evento" type="_gbjawM78Ee6dsIuvGKkUNw"/>
                     </ownedOperation>
                     <ownedOperation xmi:type="uml:Operation" xmi:id="_FbRO0M79Ee6dsIuvGKkUNw" name="terminar" visibility="public" method="_FbRO0c79Ee6dsIuvGKkUNw"/>
                     <ownedOperation xmi:type="uml:Operation" xmi:id="_FbRO0s79Ee6dsIuvGKkUNw" name="leerCliente" visibility="public" method="_FbU5MM79Ee6dsIuvGKkUNw">
@@ -2154,23 +2154,23 @@
                       <language>JAVA</language>
                       <body>
     mostrarCabecera(&quot;Gestión de un taller mecánico.&quot;);
-    for (Evento opcion : Evento.values()) {
-        System.out.printf(&quot;%d.- %s%n&quot;, opcion.getCodigo(), opcion);
+    for (Evento evento : Evento.values()) {
+        System.out.printf(&quot;%d.- %s%n&quot;, evento.getCodigo(), evento);
     }
 </body>
                     </ownedBehavior>
                     <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_GSGwMM79Ee6dsIuvGKkUNw" name="elegirOpcion" specification="_GSGJIM79Ee6dsIuvGKkUNw">
                       <language>JAVA</language>
                       <body>
-    Evento opcion = null;
+    Evento evento = null;
     do {
         try {
-            opcion = Evento.get(leerEntero(&quot;\nElige un opción: &quot;));
+            evento = Evento.get(leerEntero(&quot;\nElige un opción: &quot;));
         } catch (IllegalArgumentException e) {
             System.out.printf(&quot;ERROR: %s%n&quot;, e.getMessage());
         }
-    } while (opcion == null);
-    return opcion;
+    } while (evento == null);
+    return evento;
 </body>
                     </ownedBehavior>
                     <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_GSIlYc79Ee6dsIuvGKkUNw" name="leerEntero" specification="_GSHXQM79Ee6dsIuvGKkUNw">
