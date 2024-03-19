@@ -33,7 +33,7 @@ public class Consola {
         Evento evento = null;
         do {
             try{
-                evento = Evento.get(leerEntero("Introduzca el número de la opción"));
+                evento = Evento.get(leerEntero("Introduzca el número de la opción: "));
             } catch (IllegalArgumentException e){
                 System.out.printf("%n%s", e.getMessage());
             }
@@ -41,15 +41,15 @@ public class Consola {
         return evento;
     }
     static int leerEntero(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
         return Entrada.entero();
     }
     static float leerReal(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
         return Entrada.real();
     }
     static String leerCadena(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
         return Entrada.cadena();
     }
     static LocalDate leerFecha(String mensaje){

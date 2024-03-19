@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.tallermecanico.vista.texto;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
@@ -12,8 +11,8 @@ import java.util.List;
 import static org.iesalandalus.programacion.tallermecanico.vista.texto.Consola.*;
 
 public class VistaTexto implements Vista {
-    private GestorEventos gestorEventos;
-
+    private GestorEventos gestorEventos = new GestorEventos(Evento.values());
+    @Override
     public GestorEventos getGestorEventos() {
         return gestorEventos;
     }
@@ -34,28 +33,28 @@ public class VistaTexto implements Vista {
     }
 
     private void ejecutar(Evento opcion) {
-        mostrarCabecera("Cabecera: ");
+        mostrarCabecera("Ha elegido la opción: " + opcion.toString());
         gestorEventos.notificar(opcion);
     }
     @Override
     public Cliente leerCliente() {
-        String dni = leerCadena("Introduce un dni");
+        String dni = leerCadena("Introduce un dni: ");
         String nombre = leerNuevoNombre();
         String telefono = leerNuevoTelefono();
         return new Cliente(nombre, dni, telefono);
     }
     @Override
     public Cliente leerClienteDni() {
-        String dni = leerCadena("Introduce un dni.");
+        String dni = leerCadena("Introduce un dni: ");
         return Cliente.get(dni);
     }
     @Override
     public String leerNuevoNombre() {
-        return leerCadena("Introduce un nuevo nombre.");
+        return leerCadena("Introduce un nuevo nombre: ");
     }
     @Override
     public String leerNuevoTelefono() {
-        return leerCadena("Introduce un nuevo teléfono.");
+        return leerCadena("Introduce un nuevo teléfono: ");
     }
     @Override
     public Vehiculo leerVehiculo() {
@@ -66,36 +65,36 @@ public class VistaTexto implements Vista {
     }
     @Override
     public Vehiculo leerVehiculoMatricula() {
-        String matricula = leerCadena("Introduzca la matricula del vehículo");
+        String matricula = leerCadena("Introduzca la matricula del vehículo: ");
         return Vehiculo.get(matricula);
     }
     @Override
     public Trabajo leerRevision() {
-        return new Revision(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio de la revisión"));
+        return new Revision(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio de la revisión: "));
     }
     @Override
     public Trabajo leerMecanico() {
-        return new Mecanico(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio del mecánico"));
+        return new Mecanico(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio del mecánico: "));
     }
     @Override
     public Trabajo leerTrabajoVehiculo() {
-        return new Trabajos().buscar(Trabajo.get(leerVehiculoMatricula()));
+        return new Mecanico(new Cliente("Ruben","23810454A","717705283"),leerVehiculoMatricula(), LocalDate.now());
     }
     @Override
     public int leerHoras() {
-        return leerEntero("Introduzca el numero de horas trabajadas.");
+        return leerEntero("Introduzca el numero de horas trabajadas: ");
     }
     @Override
     public float leerPrecioMaterial() {
-        return leerReal("Introduzca el precio del material usado.");
+        return leerReal("Introduzca el precio del material usado: ");
     }
     @Override
     public LocalDate leerFechaCierre() {
-        return leerFecha("Introduzca la fecha de cuando se ha cerrado la revision.");
+        return leerFecha("Introduzca la fecha de cuando se ha cerrado la revision: ");
     }
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito) {
-        System.out.printf("%s, %s, %s", evento, texto, exito);
+        System.out.printf("%s, %s, %s \n", evento, texto, exito);
     }
     @Override
     public void mostrarCliente(Cliente cliente) {

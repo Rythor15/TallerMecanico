@@ -2,22 +2,39 @@ package org.iesalandalus.programacion.tallermecanico.vista.eventos;
 
 import jdk.jfr.Event;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GestorEventos {
-    private Map<Evento, List<ReceptorEventos>> receptores;
+    private Map<Evento, List<ReceptorEventos>> receptores = new EnumMap<>(Evento.class);
 
     public GestorEventos(Evento... eventos){
-
+        Objects.requireNonNull(eventos, "Se debe gestionar un evento válido");
+        for (Evento evento : eventos) {
+            receptores.put(evento, new ArrayList<>());
+        }
     }
-    public void subcribir(ReceptorEventos receptor, Evento... eventos){
+    public void suscribir(ReceptorEventos receptor, Evento... eventos){
+        Objects.requireNonNull(receptor,"El receptor de eventos ");
+        Objects.requireNonNull(eventos, "");
+        for (Evento evento : eventos) {
+                List<ReceptorEventos> usuarios = receptores.get(evento);
+                usuarios.add(receptor);
+        }
 
     }
     public void desuscribir(ReceptorEventos receptor, Evento... eventos){
-
+        Objects.requireNonNull(receptor,"");
+        Objects.requireNonNull(eventos, "");
+        for (Evento evento : eventos) {
+            List<ReceptorEventos> usuarios = receptores.get(evento);
+            usuarios.remove(receptor);
+        }
     }
     public void notificar(Evento evento){
-
+        Objects.requireNonNull(evento,"");
+        List<ReceptorEventos> usuarios = receptores.get(evento);
+        for(ReceptorEventos receptor : usuarios) {
+            receptor.actualizar(evento);
+        }
     }
 }
