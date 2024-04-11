@@ -29,7 +29,7 @@ public class VistaTexto implements Vista {
 
     @Override
     public void terminar() {
-        System.out.println("El programa cerro correctamente.");
+        System.out.println("El programa cerró correctamente.");
     }
 
     private void ejecutar(Evento opcion) {

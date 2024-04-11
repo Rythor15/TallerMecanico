@@ -10,6 +10,7 @@ public class FuenteDatos implements IFuenteDatos {
     @Override
     public IClientes crearClientes(){
         return new Clientes();
+        // return getInstancia;
     }
     @Override
     public IVehiculos crearVehiculos(){
