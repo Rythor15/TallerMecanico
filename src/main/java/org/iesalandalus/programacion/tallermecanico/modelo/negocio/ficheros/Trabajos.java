@@ -1,14 +1,11 @@
-package org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria;
+package org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Trabajos implements ITrabajos {
     private final List<Trabajo> coleccionTrabajos;
@@ -43,6 +40,32 @@ public class Trabajos implements ITrabajos {
             }
         }
         return listaTrabajosVehiculo;
+    }
+
+    public Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes) {
+        Map<TipoTrabajo,Integer> estadisticas = inicializaEstadisticas();
+        int ocurreciaMecanico = 0;
+        int ocurrenciaRevision = 0;
+            for(Trabajo trabajo : get()) {
+                if(trabajo.getFechaInicio().getMonth().equals(mes.getMonth()) && trabajo.getFechaInicio().getYear() == mes.getYear()) {
+                    if (trabajo instanceof Mecanico) {
+                        ocurreciaMecanico++;
+                    } else {
+                        ocurrenciaRevision++;
+                    }
+                }
+            }
+        estadisticas.put(TipoTrabajo.MECANICO, ocurreciaMecanico);
+        estadisticas.put(TipoTrabajo.REVISION, ocurrenciaRevision);
+        return estadisticas;
+    }
+
+    private Map<TipoTrabajo,Integer> inicializaEstadisticas(){
+        Map <TipoTrabajo,Integer> mapa = new EnumMap<>(TipoTrabajo.class);
+        mapa.put(TipoTrabajo.MECANICO, 0);
+        mapa.put(TipoTrabajo.REVISION, 0);
+
+        return mapa;
     }
 
     @Override

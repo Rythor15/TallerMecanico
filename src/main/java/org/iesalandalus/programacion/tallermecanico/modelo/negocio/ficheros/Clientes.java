@@ -1,20 +1,60 @@
-package org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria;
+package org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.naming.OperationNotSupportedException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Clientes implements IClientes {
 
+    private static final String FICHERO_CLIENTES = String.format("%s%s%s","xml", File.separator, "clientes.xml");
+    private static final String RAIZ = "clientes";
+    private static final String CLIENTE = "cliente";
+    private static final String NOMBRE = "nombre";
+    private static final String DNI = "dni";
+    private static final String TELEFONO = "telefono";
+
+    private static Clientes instacia;
     private final List<Cliente> coleccionClientes;
+
 
     public Clientes() {
         coleccionClientes = new ArrayList<>();
     }
+
+    static Clientes getInstancia() {
+        return instacia;
+    }
+
+   /* public void comenzar(){
+
+    }
+
+    private void procesarDocumentoXml(Document documentoXml) {
+
+    }
+
+    private Cliente getCliente (Element elemento) {
+
+    }
+
+    public void terminar(){
+
+    }
+    private Document crearDocumentoXml(){
+
+    }
+
+    private Element getElemento (Document documentoXml, Cliente cliente) {
+
+    }*/
 
     @Override
     public List<Cliente> get() {

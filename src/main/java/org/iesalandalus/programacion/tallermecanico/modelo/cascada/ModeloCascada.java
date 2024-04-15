@@ -6,14 +6,15 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuente
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IVehiculos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehiculos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Clientes;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Trabajos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Vehiculos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ModeloCascada implements Modelo {
@@ -158,5 +159,8 @@ public class ModeloCascada implements Modelo {
             listaTrabajosConVehiculo.add(new Revision((Revision) trabajo));
         }
         return listaTrabajosConVehiculo;
+    }
+    public Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes) {
+        return getEstadisticasMensuales(mes);
     }
 }

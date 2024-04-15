@@ -1,13 +1,11 @@
 package org.iesalandalus.programacion.tallermecanico.modelo.negocio;
 
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public interface ITrabajos {
@@ -16,6 +14,7 @@ public interface ITrabajos {
     List<Trabajo> get(Cliente cliente);
 
     List<Trabajo> get(Vehiculo vehiculo);
+    Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes);
 
     void insertar(Trabajo trabajo) throws OperationNotSupportedException;
 
