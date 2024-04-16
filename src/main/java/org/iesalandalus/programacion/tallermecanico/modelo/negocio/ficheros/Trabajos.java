@@ -2,6 +2,8 @@ package org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.naming.OperationNotSupportedException;
 import java.io.File;
@@ -10,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Trabajos implements ITrabajos {
-    private static final String FICHERO_TRABAJOS = String.format("%s%s%s","xml", File.separator, "trabajos.xml");
+    private static final String FICHERO_TRABAJOS = String.format("%s%s%s", "xml", File.separator, "trabajos.xml");
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final String RAIZ = "trabajos";
     private static final String TRABAJO = "trabajo";
@@ -29,6 +31,37 @@ public class Trabajos implements ITrabajos {
 
     public Trabajos() {
         coleccionTrabajos = new ArrayList<>();
+    }
+
+    static Trabajos getInstancia() {
+        if (instacia == null) {
+            instacia = new Trabajos();
+        }
+        return instacia;
+    }
+
+    public void comenzar() {
+        getInstancia();
+    }
+
+    private void procesarDocumentoXml(Document documentoXml) {
+
+    }
+
+    private Trabajo getTrabajo(Element elemento) {
+
+    }
+
+    public void terminar() {
+
+    }
+
+    private Document crearDocumentoXml() {
+
+    }
+
+    private Element getElemento(Document documentoXml, Trabajo trabajo) {
+
     }
 
     @Override
@@ -59,26 +92,26 @@ public class Trabajos implements ITrabajos {
         return listaTrabajosVehiculo;
     }
 
-    public Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes) {
-        Map<TipoTrabajo,Integer> estadisticas = inicializaEstadisticas();
+    public Map<TipoTrabajo, Integer> getEstadisticasMensuales(LocalDate mes) {
+        Map<TipoTrabajo, Integer> estadisticas = inicializaEstadisticas();
         int ocurreciaMecanico = 0;
         int ocurrenciaRevision = 0;
-            for(Trabajo trabajo : get()) {
-                if(trabajo.getFechaInicio().getMonth().equals(mes.getMonth()) && trabajo.getFechaInicio().getYear() == mes.getYear()) {
-                    if (trabajo instanceof Mecanico) {
-                        ocurreciaMecanico++;
-                    } else {
-                        ocurrenciaRevision++;
-                    }
+        for (Trabajo trabajo : get()) {
+            if (trabajo.getFechaInicio().getMonth().equals(mes.getMonth()) && trabajo.getFechaInicio().getYear() == mes.getYear()) {
+                if (trabajo instanceof Mecanico) {
+                    ocurreciaMecanico++;
+                } else {
+                    ocurrenciaRevision++;
                 }
             }
+        }
         estadisticas.put(TipoTrabajo.MECANICO, ocurreciaMecanico);
         estadisticas.put(TipoTrabajo.REVISION, ocurrenciaRevision);
         return estadisticas;
     }
 
-    private Map<TipoTrabajo,Integer> inicializaEstadisticas(){
-        Map <TipoTrabajo,Integer> mapa = new EnumMap<>(TipoTrabajo.class);
+    private Map<TipoTrabajo, Integer> inicializaEstadisticas() {
+        Map<TipoTrabajo, Integer> mapa = new EnumMap<>(TipoTrabajo.class);
         mapa.put(TipoTrabajo.MECANICO, 0);
         mapa.put(TipoTrabajo.REVISION, 0);
 

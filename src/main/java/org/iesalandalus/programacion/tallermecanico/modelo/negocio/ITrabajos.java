@@ -9,12 +9,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public interface ITrabajos {
+    void comenzar();
+
+    void terminar();
+
     List<Trabajo> get();
 
     List<Trabajo> get(Cliente cliente);
 
     List<Trabajo> get(Vehiculo vehiculo);
-    Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes);
+
+    Map<TipoTrabajo, Integer> getEstadisticasMensuales(LocalDate mes);
 
     void insertar(Trabajo trabajo) throws OperationNotSupportedException;
 

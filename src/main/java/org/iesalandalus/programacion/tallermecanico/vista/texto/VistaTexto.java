@@ -115,19 +115,19 @@ public class VistaTexto implements Vista {
     @Override
     public void mostrarClientes(List<Cliente> clientes) {
         for (Cliente cliente : clientes) {
-            System.out.println(cliente);
+            mostrarCliente(cliente);
         }
     }
     @Override
     public void mostrarVehiculos(List<Vehiculo> vehiculos) {
         for (Vehiculo vehiculo : vehiculos) {
-            System.out.println(vehiculo);
+            mostrarVehiculo(vehiculo);
         }
     }
     @Override
     public void mostrarTrabajos(List<Trabajo> trabajos) {
         for (Trabajo trabajo : trabajos) {
-            System.out.println(trabajo);
+            mostrarTrabajo(trabajo);
         }
     }
 

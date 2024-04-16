@@ -27,11 +27,13 @@ public class Vehiculos implements IVehiculos {
     }
 
     static Vehiculos getInstancia() {
+        if (instacia == null) {
+            instacia = new Vehiculos();
+        }
         return instacia;
     }
-
-    /*public void comenzar(){
-
+    public void comenzar(){
+        getInstancia();
     }
 
     private void procesarDocumentoXml(Document documentoXml) {
@@ -51,7 +53,7 @@ public class Vehiculos implements IVehiculos {
 
     private Element getElemento (Document documentoXml, Vehiculo vehiculo) {
 
-    }*/
+    }
 
     @Override
     public List<Vehiculo> get() {

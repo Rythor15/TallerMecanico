@@ -12,12 +12,9 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Vehi
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
-public class ModeloCascada implements Modelo {
+public class ModeloCascada implements Modelo{
     private IClientes clientes;
     private IVehiculos vehiculos;
     private ITrabajos trabajos;
