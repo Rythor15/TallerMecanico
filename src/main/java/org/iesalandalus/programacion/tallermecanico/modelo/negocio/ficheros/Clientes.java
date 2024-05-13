@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class Clientes implements IClientes {
 
-    private static final String FICHERO_CLIENTES = String.format("%s%s%s","xml", File.separator, "clientes.xml");
+    private static final String FICHERO_CLIENTES = String.format("%s%s%s", "xml", File.separator, "clientes.xml");
     private static final String RAIZ = "clientes";
     private static final String CLIENTE = "cliente";
     private static final String NOMBRE = "nombre";
@@ -39,7 +39,7 @@ public class Clientes implements IClientes {
         return instacia;
     }
 
-    public void comenzar(){
+    public void comenzar() {
         Document documentoXmlClientes = UtilidadesXml.leerDocumentoXml(FICHERO_CLIENTES);
         if (documentoXmlClientes != null) {
             procesarDocumentoXml(documentoXmlClientes);
@@ -55,21 +55,26 @@ public class Clientes implements IClientes {
                 if (cliente.getNodeType() == Node.ELEMENT_NODE) {
                     insertar(getCliente((Element) cliente));
                 }
-            } catch (OperationNotSupportedException|NullPointerException|IllegalArgumentException e) {
-                System.out.printf("Error: No se pudo leer el cliente %s", e.getMessage());;
+            } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+                System.out.printf("Error: No se pudo leer el cliente %s", e.getMessage());
+                ;
             }
         }
     }
 
-    private Cliente getCliente (Element elemento) {
-        return
+    private Cliente getCliente(Element elemento) {
+        String nombre = elemento.getAttribute(NOMBRE);
+        String dni = elemento.getAttribute(DNI);
+        String telefono = elemento.getAttribute(TELEFONO);
+        return new Cliente(nombre, dni, telefono);
     }
 
-    public void terminar(){
+    public void terminar() {
         Document documetnoXmlClientes = crearDocumentoXml();
         UtilidadesXml.escribirDocumentoXml(documetnoXmlClientes, FICHERO_CLIENTES);
     }
-    private Document crearDocumentoXml(){
+
+    private Document crearDocumentoXml() {
         DocumentBuilder constructor = UtilidadesXml.crearConstructorDocumentoXml();
         Document documentoXmlClientes = null;
         if (constructor != null) {
@@ -85,7 +90,7 @@ public class Clientes implements IClientes {
         return documentoXmlClientes;
     }
 
-    private Element getElemento (Document documentoXml, Cliente cliente) {
+    private Element getElemento(Document documentoXml, Cliente cliente) {
         Element elemento = documentoXml.createElement(CLIENTE);
         elemento.setAttribute(NOMBRE, cliente.getNombre());
         elemento.setAttribute(DNI, cliente.getDni());

@@ -158,6 +158,6 @@ public class ModeloCascada implements Modelo{
         return listaTrabajosConVehiculo;
     }
     public Map<TipoTrabajo,Integer> getEstadisticasMensuales(LocalDate mes) {
-        return getEstadisticasMensuales(mes);
+        return trabajos.getEstadisticasMensuales(mes);
     }
 }

@@ -4,6 +4,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.VistaGrafica;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +14,13 @@ import static org.iesalandalus.programacion.tallermecanico.vista.texto.Consola.*
 
 public class VistaTexto implements Vista {
     private GestorEventos gestorEventos = new GestorEventos(Evento.values());
+    static VistaTexto instancia = null;
+    public static VistaTexto getInstancia() {
+        if (instancia == null) {
+            instancia = new VistaTexto();
+        }
+        return instancia;
+    }
     @Override
     public GestorEventos getGestorEventos() {
         return gestorEventos;

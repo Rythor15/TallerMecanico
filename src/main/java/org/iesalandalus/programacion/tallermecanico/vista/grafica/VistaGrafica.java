@@ -4,6 +4,9 @@ import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.TipoTrabajo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Clientes;
+import org.iesalandalus.programacion.tallermecanico.ventanas.LanzadoraVentanaPrincipal;
+import org.iesalandalus.programacion.tallermecanico.ventanas.utilidades.Controlador;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
@@ -13,14 +16,26 @@ import java.util.List;
 import java.util.Map;
 
 public class VistaGrafica implements Vista {
+    private GestorEventos gestorEventos = new GestorEventos(Evento.values());
+    Controlador ventanaPrincipal;
+    static VistaGrafica instancia = null;
+    public static VistaGrafica getInstancia() {
+        if (instancia == null) {
+            instancia = new VistaGrafica();
+        }
+        return instancia;
+    }
     @Override
     public GestorEventos getGestorEventos() {
-        return null;
+        return gestorEventos;
+    }
+    public void setVentanaPrincipal(Controlador ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
     }
 
     @Override
     public void comenzar() {
-
+        LanzadoraVentanaPrincipal.comenzar();
     }
 
     @Override
