@@ -10,19 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.tallermecanico.ventanas.controladores.ControladorVistaGrafica">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Archivos">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="idClientes" mnemonicParsing="false" text="Clientes" />
+                  <MenuItem fx:id="idVehiculos" mnemonicParsing="false" text="Vehículos" />
+                  <MenuItem fx:id="idTrabajos" mnemonicParsing="false" text="Trabajos" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Informacion" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Salir">

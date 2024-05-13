@@ -17,5 +17,6 @@ public class LanzadoraVentanaPrincipal extends Application {
     }
 
     public static void comenzar() { launch(LanzadoraVentanaPrincipal.class); }
+
 }
 
