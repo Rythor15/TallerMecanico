@@ -28,7 +28,7 @@ public class Clientes implements IClientes {
     private final List<Cliente> coleccionClientes;
 
 
-    public Clientes() {
+    private Clientes() {
         coleccionClientes = new ArrayList<>();
     }
 
@@ -43,12 +43,12 @@ public class Clientes implements IClientes {
         Document documentoXmlClientes = UtilidadesXml.leerDocumentoXml(FICHERO_CLIENTES);
         if (documentoXmlClientes != null) {
             procesarDocumentoXml(documentoXmlClientes);
-            System.out.printf("Fichero %s leído correctamente.", FICHERO_CLIENTES);
+            System.out.printf("Fichero %s leído correctamente.%n", FICHERO_CLIENTES);
         }
     }
 
     private void procesarDocumentoXml(Document documentoXml) {
-        NodeList clientes = documentoXml.getElementsByTagName(RAIZ);
+        NodeList clientes = documentoXml.getElementsByTagName(CLIENTE);
         for (int i = 0; i < clientes.getLength(); i++) {
             Node cliente = clientes.item(i);
             try {
@@ -56,22 +56,22 @@ public class Clientes implements IClientes {
                     insertar(getCliente((Element) cliente));
                 }
             } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
-                System.out.printf("Error: No se pudo leer el cliente %s", e.getMessage());
-                ;
+                System.out.printf("Error al leer el cliente %d. --> %s%n", i, e.getMessage());
+                e.printStackTrace();
             }
         }
     }
 
     private Cliente getCliente(Element elemento) {
-        String nombre = elemento.getAttribute(NOMBRE);
         String dni = elemento.getAttribute(DNI);
+        String nombre = elemento.getAttribute(NOMBRE);
         String telefono = elemento.getAttribute(TELEFONO);
-        return new Cliente(nombre, dni, telefono);
+        return new Cliente(dni, nombre, telefono);
     }
 
     public void terminar() {
-        Document documetnoXmlClientes = crearDocumentoXml();
-        UtilidadesXml.escribirDocumentoXml(documetnoXmlClientes, FICHERO_CLIENTES);
+        Document documentoXmlClientes = crearDocumentoXml();
+        UtilidadesXml.escribirDocumentoXml(documentoXmlClientes, FICHERO_CLIENTES);
     }
 
     private Document crearDocumentoXml() {
@@ -92,8 +92,8 @@ public class Clientes implements IClientes {
 
     private Element getElemento(Document documentoXml, Cliente cliente) {
         Element elemento = documentoXml.createElement(CLIENTE);
-        elemento.setAttribute(NOMBRE, cliente.getNombre());
         elemento.setAttribute(DNI, cliente.getDni());
+        elemento.setAttribute(NOMBRE, cliente.getNombre());
         elemento.setAttribute(TELEFONO, cliente.getTelefono());
         return elemento;
     }

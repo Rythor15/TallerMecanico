@@ -110,15 +110,15 @@ public class VistaTexto implements Vista {
     }
     @Override
     public void mostrarCliente(Cliente cliente) {
-        System.out.print(cliente);
+        System.out.println(cliente);
     }
     @Override
     public void mostrarVehiculo(Vehiculo vehiculo) {
-        System.out.print(vehiculo);
+        System.out.println(vehiculo);
     }
     @Override
     public void mostrarTrabajo(Trabajo trabajo) {
-        System.out.print(trabajo);
+        System.out.println(trabajo);
     }
     @Override
     public void mostrarClientes(List<Cliente> clientes) {

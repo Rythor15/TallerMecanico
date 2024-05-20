@@ -2,13 +2,7 @@ package org.iesalandalus.programacion.tallermecanico.modelo.cascada;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.Modelo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuenteDatos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IVehiculos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Trabajos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros.Vehiculos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.*;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -20,18 +14,26 @@ public class ModeloCascada implements Modelo{
     private ITrabajos trabajos;
 
     public ModeloCascada(FabricaFuenteDatos fabricaFuenteDatos) {
-
+        Objects.requireNonNull(fabricaFuenteDatos,"La factoría de la fuente de datos no puede ser nula.");
+        IFuenteDatos fuenteDatos = fabricaFuenteDatos.crear();
+        clientes = fuenteDatos.crearClientes();
+        vehiculos = fuenteDatos.crearVehiculos();
+        trabajos = fuenteDatos.crearTrabajos();
     }
 
     @Override
     public void comenzar() {
-        clientes = new Clientes();
-        vehiculos = new Vehiculos();
-        trabajos = new Trabajos();
+        clientes.comenzar();
+        vehiculos.comenzar();
+        trabajos.comenzar();
+        System.out.print("El modelo ha comenzado");
     }
 
     @Override
     public void terminar() {
+        clientes.terminar();
+        vehiculos.terminar();
+        trabajos.terminar();
         System.out.print("El modelo ha terminado.");
     }
 
@@ -49,7 +51,12 @@ public class ModeloCascada implements Modelo{
     public void insertar(Trabajo trabajo) throws OperationNotSupportedException {
         Cliente cliente = clientes.buscar(trabajo.getCliente());
         Vehiculo vehiculo = vehiculos.buscar(trabajo.getVehiculo());
-        trabajos.insertar(new Revision(cliente, vehiculo, trabajo.getFechaInicio()));
+        if (trabajo instanceof Revision) {
+            trabajo = new Revision(cliente, vehiculo, trabajo.getFechaInicio());
+        } else {
+            trabajo = new Mecanico(cliente, vehiculo, trabajo.getFechaInicio());
+        }
+        trabajos.insertar(trabajo);
     }
 
     @Override
@@ -66,14 +73,8 @@ public class ModeloCascada implements Modelo{
 
     @Override
     public Trabajo buscar(Trabajo trabajo) {
-        Trabajo trabajoBuscado = null;
         trabajo = Objects.requireNonNull(trabajos.buscar(trabajo), "No existe un trabajo igual.");
-        if (trabajo instanceof Mecanico){
-            trabajoBuscado = new Mecanico((Mecanico) trabajo);
-        } else {
-            trabajoBuscado = new Revision((Revision) trabajo);
-        }
-        return trabajoBuscado;
+        return Trabajo.copiar(trabajo);
     }
 
     @Override
@@ -135,7 +136,7 @@ public class ModeloCascada implements Modelo{
     public List<Trabajo> getTrabajos() {
         List<Trabajo> listaTrabajos = new ArrayList<>();
         for (Trabajo trabajo : trabajos.get()) {
-            listaTrabajos.add(new Revision((Revision) trabajo));
+            listaTrabajos.add(Trabajo.copiar(trabajo));
         }
         return listaTrabajos;
     }
@@ -144,7 +145,7 @@ public class ModeloCascada implements Modelo{
     public List<Trabajo> getTrabajos(Cliente cliente) {
         List<Trabajo> listaTrabajosConClientes = new ArrayList<>();
         for (Trabajo trabajo : trabajos.get(cliente)) {
-            listaTrabajosConClientes.add(new Revision((Revision) trabajo));
+            listaTrabajosConClientes.add(Trabajo.copiar(trabajo));
         }
         return listaTrabajosConClientes;
     }
@@ -153,7 +154,7 @@ public class ModeloCascada implements Modelo{
     public List<Trabajo> getTrabajos(Vehiculo vehiculo) {
         List<Trabajo> listaTrabajosConVehiculo = new ArrayList<>();
         for (Trabajo trabajo : trabajos.get(vehiculo)) {
-            listaTrabajosConVehiculo.add(new Revision((Revision) trabajo));
+            listaTrabajosConVehiculo.add(Trabajo.copiar(trabajo));
         }
         return listaTrabajosConVehiculo;
     }

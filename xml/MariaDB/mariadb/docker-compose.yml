@@ -11,6 +11,6 @@ services:
       - volumen-tallermecanico:/var/lib/mysql
       - .:/docker-entrypoint-initdb.d
     ports:
-      - 3306:3306
+      - 3307:3307
 volumes:
   volumen-tallermecanico:

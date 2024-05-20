@@ -53,9 +53,9 @@ public class Trabajos implements ITrabajos {
     }
 
     private void procesarDocumentoXml(Document documentoXml) {
-        NodeList alquileres = documentoXml.getElementsByTagName(TRABAJO);
-        for (int i = 0; i < alquileres.getLength(); i++) {
-            Node trabajo = alquileres.item(i);
+        NodeList trabajos = documentoXml.getElementsByTagName(TRABAJO);
+        for (int i = 0; i < trabajos.getLength(); i++) {
+            Node trabajo = trabajos.item(i);
             try {
                 if (trabajo.getNodeType() == Node.ELEMENT_NODE) {
                     insertar(getTrabajo((Element) trabajo));

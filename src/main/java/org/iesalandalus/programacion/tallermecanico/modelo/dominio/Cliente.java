@@ -3,16 +3,16 @@ package org.iesalandalus.programacion.tallermecanico.modelo.dominio;
 import java.util.Objects;
 
 public class Cliente {
-    private static final String ER_NOMBRE = "[A-ZÁÉÍÓÚÜ][a-záéíóúü]*(?:\\s[A-ZÁÉÍÓÚÜ][a-záéíóúü]*)*";
+    private static final String ER_NOMBRE = "[A-ZÁÉÍÓÚÑ][a-záéíóúüñ]+(?: [A-ZÁÉÍÓÚ][a-záéíóúüñ]+)*+";
     private static final String ER_DNI = "\\d{8}[A-Z]";
     private static final String ER_TELEFONO = "\\d{9}";
     private String nombre;
     private String dni;
     private String telefono;
 
-    public Cliente(String nombre, String dni, String telefono) {
-        setNombre(nombre);
+    public Cliente(String dni, String nombre, String telefono) {
         setDni(dni);
+        setNombre(nombre);
         setTelefono(telefono);
     }
 
@@ -70,7 +70,7 @@ public class Cliente {
     }
 
     public static Cliente get(String dni) {
-        return new Cliente("Ruben", dni, "717705283");
+        return new Cliente(dni, "Bob Esponja", "111222333");
     }
 
     @Override
