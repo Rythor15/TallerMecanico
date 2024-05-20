@@ -2,8 +2,11 @@ package org.iesalandalus.programacion.tallermecanico.ventanas;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.iesalandalus.programacion.tallermecanico.ventanas.utilidades.Controlador;
 import org.iesalandalus.programacion.tallermecanico.ventanas.utilidades.Controladores;
+import org.iesalandalus.programacion.tallermecanico.ventanas.utilidades.Dialogos;
+import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.VistaGrafica;
 
 public class LanzadoraVentanaPrincipal extends Application {
@@ -18,5 +21,13 @@ public class LanzadoraVentanaPrincipal extends Application {
 
     public static void comenzar() { launch(LanzadoraVentanaPrincipal.class); }
 
+    void salir(WindowEvent e, Stage escenario) {
+        if (Dialogos.mostrarDialogoConfirmacion("Salir", "¿Seguro que quiere salir de la aplicación?", escenario)) {
+            escenario.close();
+            VistaGrafica.getInstancia().getGestorEventos().notificar(Evento.SALIR);
+        } else {
+            e.consume();
+        }
+    }
 }
 
