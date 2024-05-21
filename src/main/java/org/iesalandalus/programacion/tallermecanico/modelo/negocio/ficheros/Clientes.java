@@ -57,7 +57,6 @@ public class Clientes implements IClientes {
                 }
             } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
                 System.out.printf("Error al leer el cliente %d. --> %s%n", i, e.getMessage());
-                e.printStackTrace();
             }
         }
     }
