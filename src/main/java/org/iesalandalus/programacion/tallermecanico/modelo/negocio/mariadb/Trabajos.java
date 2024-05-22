@@ -212,7 +212,7 @@ public class Trabajos implements ITrabajos {
     @Override
     public void anadirHoras(Trabajo trabajo, int horas) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo añadir horas a un trabajo nulo.");
-        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where cliente = ? and vehiculo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where vehiculo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             sentencia.setString(1, trabajo.getCliente().getDni());
             sentencia.setString(2, trabajo.getVehiculo().matricula());
             ResultSet filas = sentencia.executeQuery();
@@ -231,7 +231,7 @@ public class Trabajos implements ITrabajos {
     @Override
     public void anadirPrecioMaterial(Trabajo trabajo, float precioMaterial) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo añadir precio del material a un trabajo nulo.");
-        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where cliente = ? and vehiculo = ? and tipo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where vehiculo = ? and tipo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             sentencia.setString(1, trabajo.getCliente().getDni());
             sentencia.setString(2, trabajo.getVehiculo().matricula());
             sentencia.setString(3, TipoTrabajo.MECANICO.toString());
@@ -251,7 +251,7 @@ public class Trabajos implements ITrabajos {
     @Override
     public void cerrar(Trabajo trabajo, LocalDate fechaFin) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo cerrar a un trabajo nulo.");
-        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where cliente = ? and vehiculo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+        try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where vehiculo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             sentencia.setString(1, trabajo.getCliente().getDni());
             sentencia.setString(2, trabajo.getVehiculo().matricula());
             ResultSet filas = sentencia.executeQuery();

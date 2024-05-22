@@ -43,7 +43,7 @@ public class Clientes implements IClientes {
         String nombre = fila.getString(NOMBRE);
         String dni = fila.getString(DNI);
         String telefono = fila.getString(TELEFONO);
-        return new Cliente(nombre, dni, telefono);
+        return new Cliente(dni, nombre, telefono);
     }
 
     private void prepararSentencia(PreparedStatement sentencia, Cliente cliente) throws SQLException {

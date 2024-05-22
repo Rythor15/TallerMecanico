@@ -15,12 +15,14 @@ import static org.iesalandalus.programacion.tallermecanico.vista.texto.Consola.*
 public class VistaTexto implements Vista {
     private GestorEventos gestorEventos = new GestorEventos(Evento.values());
     static VistaTexto instancia = null;
+
     public static VistaTexto getInstancia() {
         if (instancia == null) {
             instancia = new VistaTexto();
         }
         return instancia;
     }
+
     @Override
     public GestorEventos getGestorEventos() {
         return gestorEventos;
@@ -45,26 +47,31 @@ public class VistaTexto implements Vista {
         mostrarCabecera("Ha elegido la opción: " + opcion.toString());
         gestorEventos.notificar(opcion);
     }
+
     @Override
     public Cliente leerCliente() {
         String dni = leerCadena("Introduce un dni: ");
         String nombre = leerNuevoNombre();
         String telefono = leerNuevoTelefono();
-        return new Cliente(nombre, dni, telefono);
+        return new Cliente(dni, nombre, telefono);
     }
+
     @Override
     public Cliente leerClienteDni() {
         String dni = leerCadena("Introduce un dni: ");
         return Cliente.get(dni);
     }
+
     @Override
     public String leerNuevoNombre() {
         return leerCadena("Introduce un nuevo nombre: ");
     }
+
     @Override
     public String leerNuevoTelefono() {
         return leerCadena("Introduce un nuevo teléfono: ");
     }
+
     @Override
     public Vehiculo leerVehiculo() {
         String marca = leerCadena("Introduce la marca del vehículo: ");
@@ -72,66 +79,81 @@ public class VistaTexto implements Vista {
         String matricula = leerCadena("Introduzca la matricula del vehículo: ");
         return new Vehiculo(marca, modelo, matricula);
     }
+
     @Override
     public Vehiculo leerVehiculoMatricula() {
         String matricula = leerCadena("Introduzca la matricula del vehículo: ");
         return Vehiculo.get(matricula);
     }
+
     @Override
     public Trabajo leerRevision() {
         return new Revision(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio de la revisión: "));
     }
+
     @Override
     public Trabajo leerMecanico() {
         return new Mecanico(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Introduzca la fecha del inicio del mecánico: "));
     }
+
     @Override
     public Trabajo leerTrabajoVehiculo() {
-        return new Mecanico(new Cliente("Ruben","23810454A","717705283"),leerVehiculoMatricula(), LocalDate.now());
+        return new Mecanico(new Cliente("23810454A", "Ruben", "717705283"), leerVehiculoMatricula(), LocalDate.now());
     }
+
     @Override
     public int leerHoras() {
         return leerEntero("Introduzca el numero de horas trabajadas: ");
     }
+
     @Override
     public float leerPrecioMaterial() {
         return leerReal("Introduzca el precio del material usado: ");
     }
+
     @Override
     public LocalDate leerFechaCierre() {
         return leerFecha("Introduzca la fecha de cuando se ha cerrado la revision: ");
     }
-    public LocalDate leerMes(){
+
+    public LocalDate leerMes() {
         return leerFecha("Introduzca la fecha de inicio.");
     }
+
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito) {
         System.out.printf("%s, %s, %s \n", evento, texto, exito);
     }
+
     @Override
     public void mostrarCliente(Cliente cliente) {
         System.out.println(cliente);
     }
+
     @Override
     public void mostrarVehiculo(Vehiculo vehiculo) {
         System.out.println(vehiculo);
     }
+
     @Override
     public void mostrarTrabajo(Trabajo trabajo) {
         System.out.println(trabajo);
     }
+
     @Override
     public void mostrarClientes(List<Cliente> clientes) {
         for (Cliente cliente : clientes) {
             mostrarCliente(cliente);
         }
     }
+
     @Override
     public void mostrarVehiculos(List<Vehiculo> vehiculos) {
         for (Vehiculo vehiculo : vehiculos) {
             mostrarVehiculo(vehiculo);
         }
     }
+
     @Override
     public void mostrarTrabajos(List<Trabajo> trabajos) {
         for (Trabajo trabajo : trabajos) {
@@ -139,7 +161,7 @@ public class VistaTexto implements Vista {
         }
     }
 
-    public void mostrarEstadisticasMensuales(Map<TipoTrabajo,Integer> estadiscticas){
+    public void mostrarEstadisticasMensuales(Map<TipoTrabajo, Integer> estadiscticas) {
         System.out.println(estadiscticas);
     }
 }

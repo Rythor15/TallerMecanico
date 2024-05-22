@@ -18,8 +18,8 @@ public class Cliente {
 
     public Cliente(Cliente cliente) {
         Objects.requireNonNull(cliente, "No es posible copiar un cliente nulo.");
-        nombre = cliente.nombre;
         dni = cliente.dni;
+        nombre = cliente.nombre;
         telefono = cliente.telefono;
     }
 
@@ -87,6 +87,6 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return String.format("%s - %s (%s)", this.nombre, this.dni, this.telefono);
+        return String.format("%s - %s (%s)",this.dni, this.nombre, this.telefono);
     }
 }

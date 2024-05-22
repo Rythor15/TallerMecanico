@@ -33,7 +33,7 @@ public abstract class Trabajo {
     }
 
     public static Trabajo copiar(Trabajo trabajo){
-        return (trabajo instanceof Revision) ? new Revision((Revision) trabajo) : new Mecanico((Mecanico) trabajo);
+        return (trabajo instanceof Revision revision) ? new Revision(revision) : new Mecanico((Mecanico) trabajo);
     }
     public static Trabajo get(Vehiculo vehiculo){
         return new Revision(new Cliente("Ruben","23810454A", "717705283"), vehiculo, LocalDate.now());

@@ -35,7 +35,7 @@
       </MenuBar>
       <VBox alignment="BOTTOM_CENTER" prefHeight="409.0" prefWidth="600.0">
          <children>
-            <Label stylesheets="@../css/EstiloTitulo.css" text="Taller Mecanico">
+            <Label styleClass="EstiloTitulo.css" stylesheets="@../css/EstiloTitulo.css" text="Taller Mecanico">
                <font>
                   <Font size="50.0" />
                </font>
